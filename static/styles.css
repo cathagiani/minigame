@@ -1,0 +1,79 @@
+/* Estilos para el body para centrar el contenido */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7e6f7; /* Rosa claro para el fondo */
+    color: #333; /* Color oscuro para el texto */
+    text-align: center;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
+    margin: 0; /* Elimina el margen por defecto */
+}
+
+/* Estilo para el contenedor principal */
+#contenedor-juego {
+    text-align: center;
+}
+
+/* Reglas para la matriz del juego */
+#terreno {
+    white-space: pre;
+    font-size: 20px;
+    margin-top: 20px;
+    color: #222;
+    display: inline-block;
+    border: 3px solid #ff66b2; /* Borde rosa alrededor de la matriz */
+    padding: 10px;
+    background-color: #fff; /* Fondo blanco dentro de la matriz */
+    border-radius: 10px;
+    line-height: 1.5;
+    width: fit-content; /* Asegura que el ancho se ajuste al contenido */
+    height: fit-content; /* Asegura que la altura se ajuste al contenido */
+}
+
+h1 {
+    color: #ff66b2; /* Rosa fuerte para el título */
+}
+
+#reglas {
+    background-color: #fff0f5; /* Fondo blanco suave para las reglas */
+    border: 2px solid #ff66b2; /* Borde rosa */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+#mensaje {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #ff66b2; /* Rosa fuerte para los mensajes */
+}
+
+button {
+    background-color: #ff66b2; /* Botones rosas */
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff3385; /* Rosa más oscuro para el hover */
+}
+
+.jugador {
+    width: 30px;
+    height: 30px;
+}
+
+#volverBtn {
+    background-color: #ff99cc; /* Rosa claro para el botón de volver a jugar */
+}
+
+#volverBtn:hover {
+    background-color: #ff66b2; /* Hover para el botón de volver a jugar */
+}

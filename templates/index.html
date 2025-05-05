@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego Feria Web</title>
+    <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div id="contenedor-juego">
+        <h1>Juego Feria Web</h1>
+        
+        <!-- Cuadro de reglas -->
+        <div id="reglas">
+            <p><strong>Reglas del Juego:</strong></p>
+            <p>Usa las teclas <strong>W</strong> (arriba), <strong>A</strong> (izquierda), <strong>S</strong> (abajo), <strong>D</strong> (derecha) para moverte.</p>
+            <p>Pulsa la tecla <strong>Q</strong> para camuflarte.</p>
+            <p>¡Sigue las reglas y prepárate para el desafío!</p>
+        </div>
+
+        <!-- Botón para iniciar el juego -->
+        <button id="jugarBtn" onclick="iniciarJuego()">Jugar</button>
+
+        <!-- Terreno y mensaje de juego -->
+        <div id="terreno" style="display:none;"></div>
+        <div id="mensaje" style="display:none;"></div>
+
+        <!-- Botón para volver a jugar -->
+        <button id="volverBtn" onclick="iniciarJuego()" style="display:none;">Volver a jugar</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

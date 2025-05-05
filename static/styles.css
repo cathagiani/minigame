@@ -70,6 +70,11 @@ button:hover {
     height: 55px;
 }
 
+.bonshot {
+    width: 55px;
+    height: 55px;
+}
+
 #volverBtn {
     background-color: #ff99cc; /* Rosa claro para el botón de volver a jugar */
 }

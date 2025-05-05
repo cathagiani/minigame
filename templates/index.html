@@ -2,20 +2,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Juego Feria Web</title>
+    <title>Woofshot</title>
     <!-- Enlace al archivo CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div id="contenedor-juego">
-        <h1>Juego Feria Web</h1>
+        <h1>Woofshot kiss game :3</h1>
         
         <!-- Cuadro de reglas -->
         <div id="reglas">
-            <p><strong>Reglas del Juego:</strong></p>
-            <p>Usa las teclas <strong>W</strong> (arriba), <strong>A</strong> (izquierda), <strong>S</strong> (abajo), <strong>D</strong> (derecha) para moverte.</p>
-            <p>Pulsa la tecla <strong>Q</strong> para camuflarte.</p>
-            <p>¡Sigue las reglas y prepárate para el desafío!</p>
+            <p><strong>Game Rules:</strong></p>
+            <p>Use the keys <strong>W</strong> (up), <strong>A</strong> (left), <strong>S</strong> (down), and <strong>D</strong> (right) to move.</p>
+            <p>Follow the rules and get ready for the challenge!</p>
+            <p>Move around and give kisses to all the Bonshots to win ❤️</p>
+            <p>Press the <strong>Q</strong> key to camouflage and avoid being seen, but you can't kiss while camouflaged!</p>            
         </div>
 
         <!-- Botón para iniciar el juego -->
@@ -26,7 +27,7 @@
         <div id="mensaje" style="display:none;"></div>
 
         <!-- Botón para volver a jugar -->
-        <button id="volverBtn" onclick="iniciarJuego()" style="display:none;">Volver a jugar</button>
+        <button id="volverBtn" onclick="iniciarJuego()" style="display:none;">Play again</button>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

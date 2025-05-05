@@ -36,12 +36,11 @@ async function mover(direccion) {
     });
 
     const data = await response.json();
-    terrenoDiv.innerHTML = data.terreno;  // Usamos innerHTML para manejar las imágenes
+    terrenoDiv.innerHTML = data.terreno;  
     mensajeDiv.innerText = data.mensaje;
 
-    // Si se pierde, mostrar el mensaje de "perdiste"
-    if (data.mensaje.includes("perdiste") || data.mensaje.includes("¡Ganaste")) {
-        terminarJuego();  // ⬅️ también termina si ganaste
+    if (data.ganaste) {  // 🔥 ahora sí sabremos si se ganó
+        terminarJuego();
     }
 }
 

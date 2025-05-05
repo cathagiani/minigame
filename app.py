@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+import random
 
 app = Flask(__name__)
 
@@ -9,35 +10,21 @@ terreno = [['.' for _ in range(ANCHO)] for _ in range(ALTO)]
 jugador_x = ANCHO // 2
 jugador_y = ALTO // 2
 camuflado = False
-# Inicializa la imagen del jugador
-imagen_jugador = "img/pagedoll.png"  # Imagen predeterminada
-# Variable temporal para cambiar la imagen solo hasta que el jugador se mueva
-imagen_bomba_desactivada = False
+imagen_jugador = "img/woofzn.png"
+imagen_bonshot_besado = False
 
+# Lista de bonshots
+bonshots = []
 
-import random
-
-# Nuevo: lista de bombas con sus coordenadas y estado
-bombas = []
-
-def inicializar_bombas():
-    global bombas
-    bombas = []
-    cantidad = random.randint(5, 10)  # Entre 5 y 10 bombas
-    while len(bombas) < cantidad:
+def inicializar_bonshots():
+    global bonshots
+    bonshots = []
+    cantidad = random.randint(5, 10)
+    while len(bonshots) < cantidad:
         x = random.randint(0, ANCHO - 1)
         y = random.randint(0, ALTO - 1)
-        # No poner bomba donde empieza el jugador
-        if (x, y) != (jugador_x, jugador_y) and (x, y) not in [b[:2] for b in bombas]:
-            bombas.append([x, y, False])  # [x, y, desactivada=False]
-
-
-
-# Bombas en el mapa: cada bomba es un diccionario con x, y y su estado
-bombas = [
-    {'x': 5, 'y': 3, 'activa': True},
-    {'x': 10, 'y': 7, 'activa': True},
-]
+        if (x, y) != (jugador_x, jugador_y) and (x, y) not in [b[:2] for b in bonshots]:
+            bonshots.append([x, y, False])  # [x, y, besado=False]
 
 def render_terreno():
     terreno_txt = '<table class="matriz">'
@@ -46,12 +33,11 @@ def render_terreno():
         for x in range(ANCHO):
             terreno_txt += '<td>'
             if x == jugador_x and y == jugador_y:
-                # Mostrar la imagen del jugador dependiendo del estado
-                terreno_txt += f'<img src="/static/{ imagen_jugador if not imagen_bomba_desactivada else "img/jugador_bomba.png" }" class="jugador">'
-            elif any(bx == x and by == y and not desactivada for bx, by, desactivada in bombas):
-                terreno_txt += '<img src="/static/img/bomba.png" class="bomba">'  # Bomba activa
-            elif any(bx == x and by == y and desactivada for bx, by, desactivada in bombas):
-                terreno_txt += '<img src="/static/img/bomba_off.png" class="bomba">'  # Bomba desactivada
+                terreno_txt += f'<img src="/static/{ imagen_jugador if not imagen_bonshot_besado else "img/kissy.png" }" class="jugador">'
+            elif any(bx == x and by == y and not besado for bx, by, besado in bonshots):
+                terreno_txt += '<img src="/static/img/bonshot.png" class="bonshot">'  # Bonshot activo
+            elif any(bx == x and by == y and besado for bx, by, besado in bonshots):
+                terreno_txt += '<img src="/static/img/kissedbonshot.png" class="bonshot">'  # Bonshot besado
             else:
                 terreno_txt += '.'
             terreno_txt += '</td>'
@@ -59,17 +45,15 @@ def render_terreno():
     terreno_txt += '</table>'
     return terreno_txt
 
-
 def mover_jugador(direccion):
-    global jugador_x, jugador_y, camuflado, imagen_jugador, imagen_bomba_desactivada
+    global jugador_x, jugador_y, camuflado, imagen_jugador, imagen_bonshot_besado
     mensaje = ""
+    ganaste = False  # 🔥 nuevo flag
 
-    # Revertir la imagen después de un movimiento
-    if imagen_bomba_desactivada:
-        imagen_jugador = "img/pagedoll.png" if not camuflado else "img/borgir.png"
-        imagen_bomba_desactivada = False  # Restablece la bandera después de mover
+    if imagen_bonshot_besado:
+        imagen_jugador = "img/woofzn.png" if not camuflado else "img/camouflage.png"
+        imagen_bonshot_besado = False
 
-    # Mover al jugador según la dirección
     if direccion == 'W' and jugador_y > 0:
         jugador_y -= 1
     elif direccion == 'S' and jugador_y < ALTO - 1:
@@ -80,27 +64,28 @@ def mover_jugador(direccion):
         jugador_x += 1
     elif direccion == 'Q':
         camuflado = not camuflado
-        mensaje = "Te camuflaste!" if camuflado else "Dejaste de camuflarte!"
-    
-    # Revisa si el jugador está encima de una bomba
-    for bomba in bombas:
-        bx, by, desactivada = bomba
-        if bx == jugador_x and by == jugador_y and not desactivada:
+        imagen_jugador = "img/camouflage.png" if camuflado else "img/woofzn.png"
+        mensaje = "Youre camouflaged!" if camuflado else "You stopped camouflaging!"
+
+
+    # Revisar si beso bonshot
+    for bonshot in bonshots:
+        bx, by, besado = bonshot
+        if bx == jugador_x and by == jugador_y and not besado:
             if not camuflado:
-                bomba[2] = True  # Desactivar la bomba
-                mensaje = "¡Desactivaste una bomba!"
-                imagen_jugador = "img/jugador_bomba.png"  # Cambia la imagen del jugador cuando desactiva una bomba
-                imagen_bomba_desactivada = True  # Marca que la imagen se ha cambiado por desactivar una bomba
+                bonshot[2] = True
+                mensaje = "You kissed a bonshot!"
+                imagen_jugador = "img/kissy.png"
+                imagen_bonshot_besado = True
             else:
-                mensaje = "¡No puedes desactivar bomba mientras estás camuflado!"
-    
-    # Ganar si todas las bombas están desactivadas
-    if all(desactivada for _, _, desactivada in bombas):
-        mensaje = "¡Ganaste! Todas las bombas desactivadas."
-    
-    return mensaje
+                mensaje = "You cant kiss bonshot while being camouflaged!!"
 
+    # Ganar si todos besados
+    if all(besado for _, _, besado in bonshots):
+        mensaje = "All bonshots have been kissed! You win!"
+        ganaste = True  # 🔥 ahora sí marcamos como ganado
 
+    return mensaje, ganaste
 
 @app.route('/')
 def index():
@@ -112,19 +97,18 @@ def mover():
     data = request.json
     direccion = data.get('direccion', '')
 
-    # Si es inicio de partida
     if direccion == '':
         jugador_x = ANCHO // 2
         jugador_y = ALTO // 2
         camuflado = False
-        inicializar_bombas()
+        inicializar_bonshots()
 
-    mensaje = mover_jugador(direccion.upper())
+    mensaje, ganaste = mover_jugador(direccion.upper())
     return jsonify({
         'terreno': render_terreno(),
-        'mensaje': mensaje
+        'mensaje': mensaje,
+        'ganaste': ganaste  # 🔥 enviamos flag al JS
     })
-
 
 if __name__ == '__main__':
     app.run(debug=True)

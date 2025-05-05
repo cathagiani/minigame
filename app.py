@@ -43,7 +43,7 @@ def inicializar_bonshots():
 def inicializar_spiders():
     global spiders
     spiders = []
-    while len(spiders) < 6:
+    while len(spiders) < 4:
         x = random.randint(0, ANCHO - 1)
         y = random.randint(0, ALTO - 1)
         if (x, y) != (jugador_x, jugador_y) and (x, y) not in [b[:2] for b in bonshots] and (x, y) not in cartas_amor:

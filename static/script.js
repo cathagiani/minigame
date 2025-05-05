@@ -1,3 +1,4 @@
+const vidasDiv = document.getElementById('vidas');
 const terrenoDiv = document.getElementById('terreno');
 const mensajeDiv = document.getElementById('mensaje');
 const reglasDiv = document.getElementById('reglas');
@@ -14,6 +15,7 @@ function iniciarJuego() {
     terrenoDiv.style.display = 'block';
     mensajeDiv.style.display = 'block';
     volverBtn.style.display = 'none';
+    vidasDiv.innerText = "Vidas restantes: 3";
     
     mover('');  // Renderiza el terreno sin mover al principio
 }
@@ -38,6 +40,7 @@ async function mover(direccion) {
     const data = await response.json();
     terrenoDiv.innerHTML = data.terreno;  
     mensajeDiv.innerText = data.mensaje;
+    vidasDiv.innerText = `Vidas restantes: ${data.vidas}`;
 
     if (data.ganaste) {  // 🔥 ahora sí sabremos si se ganó
         terminarJuego();

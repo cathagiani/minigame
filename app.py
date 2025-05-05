@@ -12,6 +12,7 @@ jugador_y = ALTO // 2
 camuflado = False
 imagen_jugador = "img/woofzn.png"
 imagen_bonshot_besado = False
+vidas = 3
 
 # Lista de bonshots
 bonshots = []
@@ -46,9 +47,14 @@ def render_terreno():
     return terreno_txt
 
 def mover_jugador(direccion):
-    global jugador_x, jugador_y, camuflado, imagen_jugador, imagen_bonshot_besado
+    global jugador_x, jugador_y, camuflado, imagen_jugador, imagen_bonshot_besado, vidas
     mensaje = ""
-    ganaste = False  # 🔥 nuevo flag
+    ganaste = False
+
+    if vidas <= 0:
+        mensaje = "¡Game Over! Has perdido todas tus vidas."
+        ganaste = False
+        vidas = 3  # Reiniciar las vidas cuando se pierden todas
 
     if imagen_bonshot_besado:
         imagen_jugador = "img/woofzn.png" if not camuflado else "img/camouflage.png"
@@ -93,7 +99,7 @@ def index():
 
 @app.route('/mover', methods=['POST'])
 def mover():
-    global jugador_x, jugador_y, camuflado
+    global jugador_x, jugador_y, camuflado, vidas
     data = request.json
     direccion = data.get('direccion', '')
 
@@ -101,13 +107,15 @@ def mover():
         jugador_x = ANCHO // 2
         jugador_y = ALTO // 2
         camuflado = False
+        vidas = 3
         inicializar_bonshots()
 
     mensaje, ganaste = mover_jugador(direccion.upper())
     return jsonify({
         'terreno': render_terreno(),
         'mensaje': mensaje,
-        'ganaste': ganaste  # 🔥 enviamos flag al JS
+        'ganaste': ganaste, # 🔥 enviamos flag al JS
+        'vidas': vidas,  # Enviamos el número de vidas restantes
     })
 
 if __name__ == '__main__':

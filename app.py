@@ -4,8 +4,8 @@ import random
 app = Flask(__name__)
 
 # --- Juego: Estado global ---
-ANCHO = 20
-ALTO = 10
+ANCHO = 8
+ALTO = 7
 terreno = [['.' for _ in range(ANCHO)] for _ in range(ALTO)]
 jugador_x = ANCHO // 2
 jugador_y = ALTO // 2

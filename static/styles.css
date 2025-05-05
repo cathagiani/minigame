@@ -9,11 +9,19 @@ body {
     align-items: center; /* Centra verticalmente */
     height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
     margin: 0; /* Elimina el margen por defecto */
+    overflow: hidden; /* Evita el desplazamiento de la página */
 }
 
 /* Estilo para el contenedor principal */
 #contenedor-juego {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Asegura que el contenedor ocupe toda la altura */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    padding: 10px;
+    overflow: hidden; /* Evita desplazamiento */
 }
 
 /* Reglas para la matriz del juego */
@@ -28,26 +36,36 @@ body {
     background-color: #fff; /* Fondo blanco dentro de la matriz */
     border-radius: 10px;
     line-height: 1.5;
-    width: fit-content; /* Asegura que el ancho se ajuste al contenido */
-    height: fit-content; /* Asegura que la altura se ajuste al contenido */
+    width: 100%; /* Ajusta el ancho a un 90% para reducir el tamaño */
+    height: 100%; /* Ajusta la altura a un 90% para reducir el tamaño */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del tamaño */
+    overflow: hidden; /* Evita el desplazamiento dentro de la matriz */
 }
 
+/* Estilo para el título */
 h1 {
     color: #ff66b2; /* Rosa fuerte para el título */
+    font-size: 2em; /* Ajusta el tamaño del título para que sea legible sin sobrecargar */
+    margin: 10px 0;
 }
 
+/* Reglas del cuadro de reglas */
 #reglas {
     background-color: #fff0f5; /* Fondo blanco suave para las reglas */
     border: 2px solid #ff66b2; /* Borde rosa */
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
+    max-height: 25vh; /* Limita la altura de las reglas */
+    overflow-y: auto; /* Agrega scroll solo si es necesario */
+    flex-grow: 1; /* Permite que el cuadro de reglas crezca si es necesario */
 }
 
 #mensaje {
     margin-top: 20px;
     font-size: 24px;
     color: #ff66b2; /* Rosa fuerte para los mensajes */
+    overflow: hidden; /* Evita que el mensaje se desborde */
 }
 
 button {
@@ -59,6 +77,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    max-width: 100%;
 }
 
 button:hover {
@@ -89,18 +108,22 @@ button:hover {
 }
 
 .matriz {
-    border-collapse: collapse;
-    margin: 0 auto;
+    width: 100%;  /* Ajusta el ancho a un 60% */
+    height: 100%; /* Ajusta la altura a un 60% */
+    margin: 0 auto; /* Centra la matriz */
 }
 
+/* Ajusta el tamaño de las celdas */
 .matriz td {
-    padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 3.5vw; /* Tamaño más pequeño para las celdas */
+    height: 3.5vw; /* Tamaño más pequeño para las celdas */
 }
 
+/* Ajusta el tamaño de las imágenes dentro de las celdas */
 .matriz img {
-    display: block;
+    width: 100%;  /* Hacemos que las imágenes ocupen el 80% del tamaño de la celda */
+    height: 100%; /* Hacemos lo mismo con la altura para mantener la proporción */
+    object-fit: contain; /* Asegura que la imagen mantenga su proporción sin distorsionarse */
 }
 
 .loveletter {

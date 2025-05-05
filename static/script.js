@@ -41,7 +41,7 @@ async function mover(direccion) {
     mensajeDiv.innerText = data.mensaje;
     vidasDiv.innerText = `Lives left: ${'❤️'.repeat(data.vidas)}`;
 
-    if (data.ganaste) {  // 🔥 ahora sí sabremos si se ganó
+    if (data.ganaste || data.perdiste) {  // 🔥 ahora sí sabremos si se ganó
         terminarJuego();
     }
 }

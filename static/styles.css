@@ -75,6 +75,11 @@ button:hover {
     height: 55px;
 }
 
+.spider {
+    width: 55px;
+    height: 55px;
+}
+
 #volverBtn {
     background-color: #ff99cc; /* Rosa claro para el botón de volver a jugar */
 }

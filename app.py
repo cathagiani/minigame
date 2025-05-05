@@ -18,6 +18,7 @@ imagen_loveletter = False
 # Lista de bonshots
 bonshots = []
 cartas_amor = []
+spiders = []
 
 def inicializar_bonshots():
     global bonshots, cartas_amor
@@ -39,6 +40,17 @@ def inicializar_bonshots():
            and (x, y) not in cartas_amor:
             cartas_amor.append((x, y))
 
+def inicializar_spiders():
+    global spiders
+    spiders = []
+    while len(spiders) < 6:
+        x = random.randint(0, ANCHO - 1)
+        y = random.randint(0, ALTO - 1)
+        if (x, y) != (jugador_x, jugador_y) and (x, y) not in [b[:2] for b in bonshots] and (x, y) not in cartas_amor:
+            # Direccion: 0 = horizontal, 1 = vertical
+            direccion = 0 if len(spiders) < 2 else 1
+            spiders.append([x, y, direccion])
+
 def render_terreno():
     terreno_txt = '<table class="matriz">'
     for y in range(ALTO):
@@ -55,11 +67,13 @@ def render_terreno():
                     src = imagen_jugador
                 terreno_txt += f'<img src="/static/{src}" class="jugador">'
             elif any(bx == x and by == y and not besado for bx, by, besado in bonshots):
-                terreno_txt += '<img src="/static/img/bonshot.png" class="bonshot">'  # Bonshot activo
+                terreno_txt += '<img src="/static/img/bonshot.png" class="bonshot">'
             elif any(bx == x and by == y and besado for bx, by, besado in bonshots):
-                terreno_txt += '<img src="/static/img/kissedbonshot.png" class="bonshot">'  # Bonshot besado
+                terreno_txt += '<img src="/static/img/kissedbonshot.png" class="bonshot">'
             elif (x, y) in cartas_amor:
                 terreno_txt += '<img src="/static/img/luvletter.png" class="loveletter">'
+            elif any(sx == x and sy == y for sx, sy, _ in spiders):
+                terreno_txt += '<img src="/static/img/spider.png" class="spider">'  # Imagen que agregarás
             else:
                 terreno_txt += '.'
             terreno_txt += '</td>'
@@ -67,15 +81,31 @@ def render_terreno():
     terreno_txt += '</table>'
     return terreno_txt
 
+def mover_spiders():
+    global spiders
+    for spider in spiders:
+        x, y, direccion = spider
+        if direccion == 0:  # horizontal
+            x += 1
+            if x >= ANCHO:
+                x = 0  # vuelve al inicio
+        else:  # vertical
+            y += 1
+            if y >= ALTO:
+                y = 0  # vuelve al inicio
+        spider[0] = x
+        spider[1] = y
+
 def mover_jugador(direccion):
     global jugador_x, jugador_y, camuflado, imagen_jugador, imagen_bonshot_besado, vidas, cartas_amor, imagen_loveletter
     mensaje = ""
     ganaste = False
+    imagen_jugador_original = "img/woofzn.png"  # Imagen original de Woofzn (normal)
 
     if vidas <= 0:
-        mensaje = "¡Game Over! You lost all your lives!"
+        mensaje = "Game Over! You lost all your lives!"
         ganaste = False
-        vidas = 3  # Reiniciar las vidas cuando se pierden todas
+        return mensaje, ganaste
 
     imagen_loveletter = False
     imagen_bonshot_besado = False
@@ -116,6 +146,17 @@ def mover_jugador(direccion):
         mensaje = "All bonshots have been kissed! You win!"
         ganaste = True
 
+    mover_spiders()
+    for sx, sy, _ in spiders:
+        if not camuflado and (
+            (sx == jugador_x and sy == jugador_y) or  # 🔥 encima de la spider
+            (abs(sx - jugador_x) == 1 and sy == jugador_y) or  # izquierda o derecha
+            (abs(sy - jugador_y) == 1 and sx == jugador_x)     # arriba o abajo
+        ):
+            vidas -= 1
+            mensaje = "A spider hurt you! -1 life"
+            break  # solo perder una vida por turno
+            
     return mensaje, ganaste
 
 @app.route('/')
@@ -133,14 +174,21 @@ def mover():
         jugador_y = ALTO // 2
         camuflado = False
         inicializar_bonshots()
+        inicializar_spiders()
+        vidas = 3
 
     mensaje, ganaste = mover_jugador(direccion.upper())
+
+    perdiste = vidas <= 0
+
     return jsonify({
         'terreno': render_terreno(),
         'mensaje': mensaje,
-        'ganaste': ganaste, # 🔥 enviamos flag al JS
-        'vidas': vidas,  # Enviamos el número de vidas restantes
+        'ganaste': ganaste,
+        'perdiste': perdiste,  # 🔥 nuevo flag para JS
+        'vidas': vidas,
     })
+
 
 if __name__ == '__main__':
     app.run(debug=True)

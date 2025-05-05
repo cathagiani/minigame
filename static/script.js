@@ -15,7 +15,6 @@ function iniciarJuego() {
     terrenoDiv.style.display = 'block';
     mensajeDiv.style.display = 'block';
     volverBtn.style.display = 'none';
-    vidasDiv.innerText = "Vidas restantes: 3";
     
     mover('');  // Renderiza el terreno sin mover al principio
 }
@@ -40,7 +39,7 @@ async function mover(direccion) {
     const data = await response.json();
     terrenoDiv.innerHTML = data.terreno;  
     mensajeDiv.innerText = data.mensaje;
-    vidasDiv.innerText = `Vidas restantes: ${data.vidas}`;
+    vidasDiv.innerText = `Lives left: ${'❤️'.repeat(data.vidas)}`;
 
     if (data.ganaste) {  // 🔥 ahora sí sabremos si se ganó
         terminarJuego();

@@ -97,3 +97,8 @@ button:hover {
 .matriz img {
     display: block;
 }
+
+.loveletter {
+    width: 55px;
+    height: 55px;
+}

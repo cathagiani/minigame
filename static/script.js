@@ -18,11 +18,10 @@ function iniciarJuego() {
     mover('');  // Renderiza el terreno sin mover al principio
 }
 
-// Función para mostrar el botón de "volver a jugar" al perder
+// Función para mostrar el botón de "volver a jugar"
 function terminarJuego() {
     jugando = false;
     volverBtn.style.display = 'block';
-    mensajeDiv.innerText = "¡Perdiste! Haz clic en 'Volver a jugar' para intentar de nuevo.";
 }
 
 async function mover(direccion) {
@@ -37,19 +36,23 @@ async function mover(direccion) {
     });
 
     const data = await response.json();
-    terrenoDiv.innerHTML = data.terreno;  // Usamos innerHTML para manejar las imágenes del jugador
+    terrenoDiv.innerHTML = data.terreno;  // Usamos innerHTML para manejar las imágenes
     mensajeDiv.innerText = data.mensaje;
 
     // Si se pierde, mostrar el mensaje de "perdiste"
-    if (data.mensaje.includes("perdiste")) {
-        terminarJuego();
+    if (data.mensaje.includes("perdiste") || data.mensaje.includes("¡Ganaste")) {
+        terminarJuego();  // ⬅️ también termina si ganaste
     }
 }
 
-// Detectar las teclas
 document.addEventListener('keydown', (e) => {
     const tecla = e.key.toUpperCase();
     if (['W', 'A', 'S', 'D', 'Q'].includes(tecla)) {
+        e.preventDefault();  // ⬅️ evita el scroll o acción por defecto del navegador
         mover(tecla);
     }
+});
+
+volverBtn.addEventListener('click', () => {
+    iniciarJuego();
 });

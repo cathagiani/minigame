@@ -66,8 +66,8 @@ button:hover {
 }
 
 .jugador {
-    width: 30px;
-    height: 30px;
+    width: 55px;
+    height: 55px;
 }
 
 #volverBtn {
@@ -76,4 +76,19 @@ button:hover {
 
 #volverBtn:hover {
     background-color: #ff66b2; /* Hover para el botón de volver a jugar */
+}
+
+.matriz {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.matriz td {
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.matriz img {
+    display: block;
 }

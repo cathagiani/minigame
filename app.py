@@ -4,8 +4,8 @@ import random
 app = Flask(__name__)
 
 # --- Juego: Estado global ---
-ANCHO = 8
-ALTO = 7
+ANCHO = 6
+ALTO = 6
 terreno = [['.' for _ in range(ANCHO)] for _ in range(ALTO)]
 jugador_x = ANCHO // 2
 jugador_y = ALTO // 2
@@ -43,12 +43,11 @@ def inicializar_bonshots():
 def inicializar_spiders():
     global spiders
     spiders = []
-    while len(spiders) < 4:
+    while len(spiders) < 2:
         x = random.randint(0, ANCHO - 1)
         y = random.randint(0, ALTO - 1)
         if (x, y) != (jugador_x, jugador_y) and (x, y) not in [b[:2] for b in bonshots] and (x, y) not in cartas_amor:
-            # Direccion: 0 = horizontal, 1 = vertical
-            direccion = 0 if len(spiders) < 2 else 1
+            direccion = random.choice([0, 1])  # 0 = horizontal, 1 = vertical
             spiders.append([x, y, direccion])
 
 def render_terreno():

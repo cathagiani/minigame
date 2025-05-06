@@ -1,75 +1,70 @@
-/* Estilos para el body para centrar el contenido */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f7e6f7; /* Rosa claro para el fondo */
-    color: #333; /* Color oscuro para el texto */
+    background-color: #f7e6f7;
+    color: #333; 
     text-align: center;
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
-    margin: 0; /* Elimina el margen por defecto */
-    overflow: hidden; /* Evita el desplazamiento de la página */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
 }
 
-/* Estilo para el contenedor principal */
 #contenedor-juego {
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Asegura que el contenedor ocupe toda la altura */
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    height: 100%;
+    width: 100%;
     padding: 10px;
-    overflow: hidden; /* Evita desplazamiento */
+    overflow: hidden;
 }
 
-/* Reglas para la matriz del juego */
 #terreno {
     white-space: pre;
     font-size: 20px;
     margin-top: 20px;
     color: #222;
     display: inline-block;
-    border: 3px solid #ff66b2; /* Borde rosa alrededor de la matriz */
+    border: 3px solid #ff66b2;
     padding: 10px;
-    background-color: #fff; /* Fondo blanco dentro de la matriz */
+    background-color: #fff;
     border-radius: 10px;
     line-height: 1.5;
-    width: 100%; /* Ajusta el ancho a un 90% para reducir el tamaño */
-    height: 100%; /* Ajusta la altura a un 90% para reducir el tamaño */
-    box-sizing: border-box; /* Incluye el padding en el cálculo del tamaño */
-    overflow: hidden; /* Evita el desplazamiento dentro de la matriz */
+    width: 100%;
+    height: 100%; 
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-/* Estilo para el título */
 h1 {
-    color: #ff66b2; /* Rosa fuerte para el título */
-    font-size: 2em; /* Ajusta el tamaño del título para que sea legible sin sobrecargar */
+    color: #ff66b2;
+    font-size: 2em;
     margin: 10px 0;
 }
 
-/* Reglas del cuadro de reglas */
 #reglas {
-    background-color: #fff0f5; /* Fondo blanco suave para las reglas */
-    border: 2px solid #ff66b2; /* Borde rosa */
+    background-color: #fff0f5;
+    border: 2px solid #ff66b2;
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
-    max-height: 25vh; /* Limita la altura de las reglas */
-    overflow-y: auto; /* Agrega scroll solo si es necesario */
-    flex-grow: 1; /* Permite que el cuadro de reglas crezca si es necesario */
+    max-height: 25vh;
+    overflow-y: auto;
+    flex-grow: 1;
 }
 
 #mensaje {
     margin-top: 20px;
     font-size: 24px;
-    color: #ff66b2; /* Rosa fuerte para los mensajes */
-    overflow: hidden; /* Evita que el mensaje se desborde */
+    color: #ff66b2;
+    overflow: hidden;
 }
 
 button {
-    background-color: #ff66b2; /* Botones rosas */
+    background-color: #ff66b2;
     color: white;
     font-size: 18px;
     border: none;
@@ -81,7 +76,7 @@ button {
 }
 
 button:hover {
-    background-color: #ff3385; /* Rosa más oscuro para el hover */
+    background-color: #ff3385;
 }
 
 .jugador {
@@ -100,30 +95,30 @@ button:hover {
 }
 
 #volverBtn {
-    background-color: #ff99cc; /* Rosa claro para el botón de volver a jugar */
+    background-color: #ff99cc;
 }
 
 #volverBtn:hover {
-    background-color: #ff66b2; /* Hover para el botón de volver a jugar */
+    background-color: #ff66b2;
 }
 
 .matriz {
-    width: 100%;  /* Ajusta el ancho a un 60% */
-    height: 100%; /* Ajusta la altura a un 60% */
-    margin: 0 auto; /* Centra la matriz */
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
 }
 
-/* Ajusta el tamaño de las celdas */
+
 .matriz td {
-    width: 3.5vw; /* Tamaño más pequeño para las celdas */
-    height: 3.5vw; /* Tamaño más pequeño para las celdas */
+    width: 3.5vw;
+    height: 3.5vw;
 }
 
-/* Ajusta el tamaño de las imágenes dentro de las celdas */
+
 .matriz img {
-    width: 100%;  /* Hacemos que las imágenes ocupen el 80% del tamaño de la celda */
-    height: 100%; /* Hacemos lo mismo con la altura para mantener la proporción */
-    object-fit: contain; /* Asegura que la imagen mantenga su proporción sin distorsionarse */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .loveletter {

@@ -185,7 +185,7 @@ def mover():
         'terreno': render_terreno(),
         'mensaje': mensaje,
         'ganaste': ganaste,
-        'perdiste': perdiste,  # 🔥 nuevo flag para JS
+        'perdiste': perdiste,
         'vidas': vidas,
     })
 

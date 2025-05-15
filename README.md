@@ -18,7 +18,7 @@
 
 ## Game Description
 
-In **Woofshot**, Woofzn, the main character, must navigate through a grid of "bonshots" (bomb-like enemies). The goal is to kiss Bonshot, his boyfriend, while avoiding the dangerous spiders and collecting love letters for health boosts. The player will need to strategically move Woofzn, use camouflage, and manage health to successfully complete the game.
+In **Woofshot**, Woofzn, the main character, must navigate through a grid of "bonshots". The goal is to kiss Bonshot, her boyfriend, while avoiding the dangerous spiders and collecting love letters for health boosts. The player will need to strategically move Woofzn, use camouflage, and manage health to successfully complete the game.
 
 ### Objective
 
